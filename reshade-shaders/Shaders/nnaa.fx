@@ -8195,6 +8195,19 @@ void Layer_conv2d_final(uint3 id : SV_DispatchThreadID, uint3 tid : SV_GroupThre
     tex2Dstore(storageLuma, (id.xy * 2) + uint2(1, 1), f_out.w);
 }
 
+#define K_SIZE 8
+
+#if (BUFFER_WIDTH % (2 * K_SIZE)) == 0
+#define X_DISPATCH (BUFFER_WIDTH / (2 * K_SIZE))
+#else
+#define X_DISPATCH ((BUFFER_WIDTH / (2 * K_SIZE)) + 1)
+#endif
+
+#if (BUFFER_HEIGHT % (2 * K_SIZE)) == 0
+#define Y_DISPATCH (BUFFER_HEIGHT / (2 * K_SIZE))
+#else
+#define Y_DISPATCH ((BUFFER_HEIGHT / (2 * K_SIZE)) + 1)
+#endif
 
 technique Sarenya_NNAA < ui_tooltip = "Sarénya NNAA"; >
 {
@@ -8207,42 +8220,42 @@ technique Sarenya_NNAA < ui_tooltip = "Sarénya NNAA"; >
 
     pass pass_conv2d
     {
-        ComputeShader = Layer_conv2d<16, 12>;
+        ComputeShader = Layer_conv2d<K_SIZE, K_SIZE>;
 
-        DispatchSizeX = BUFFER_WIDTH / (2 * 16);
-        DispatchSizeY = BUFFER_HEIGHT / (2 * 12);
+        DispatchSizeX = X_DISPATCH;
+        DispatchSizeY = Y_DISPATCH;
     }
 
     pass pass_conv2d_1
     {
-        ComputeShader = Layer_conv2d_1<8, 8>;
+        ComputeShader = Layer_conv2d_1<K_SIZE, K_SIZE>;
 
-        DispatchSizeX = BUFFER_WIDTH / (2 * 8);
-        DispatchSizeY = BUFFER_HEIGHT / (2 * 8);
+        DispatchSizeX = X_DISPATCH;
+        DispatchSizeY = Y_DISPATCH;
     }
 
     pass pass_conv2d_2
     {
-        ComputeShader = Layer_conv2d_2<8, 8>;
+        ComputeShader = Layer_conv2d_2<K_SIZE, K_SIZE>;
 
-        DispatchSizeX = BUFFER_WIDTH / (2 * 8);
-        DispatchSizeY = BUFFER_HEIGHT / (2 * 8);
+        DispatchSizeX = X_DISPATCH;
+        DispatchSizeY = Y_DISPATCH;
     }
 
     pass pass_conv2d_3
     {
-        ComputeShader = Layer_conv2d_3<8, 8>;
+        ComputeShader = Layer_conv2d_3<K_SIZE, K_SIZE>;
 
-        DispatchSizeX = BUFFER_WIDTH / (2 * 8);
-        DispatchSizeY = BUFFER_HEIGHT / (2 * 8);
+        DispatchSizeX = X_DISPATCH;
+        DispatchSizeY = Y_DISPATCH;
     }
 
     pass pass_conv2d_final
     {
-        ComputeShader = Layer_conv2d_final<16, 12>;
+        ComputeShader = Layer_conv2d_final<K_SIZE, K_SIZE>;
 
-        DispatchSizeX = BUFFER_WIDTH / (2 * 16);
-        DispatchSizeY = BUFFER_HEIGHT / (2 * 12);
+        DispatchSizeX = X_DISPATCH;
+        DispatchSizeY = Y_DISPATCH;
     }
 
     pass apply_nn
