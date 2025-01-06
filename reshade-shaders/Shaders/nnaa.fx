@@ -8,7 +8,7 @@ texture2D texLuma
     Width = BUFFER_WIDTH;
     Height = BUFFER_HEIGHT;
     MipLevels = 0;
-    Format = R32F;
+    Format = R16F;
 };
 
 storage2D storageLuma
@@ -28,7 +28,7 @@ texture3D texTarget0
     Height = BUFFER_HEIGHT / 2;
     Depth = 8;
     MipLevels = 0;
-    Format = RGBA32F;
+    Format = RGBA16F;
 };
 
 storage3D storageTarget0
@@ -43,7 +43,7 @@ texture3D texTarget1
     Height = BUFFER_HEIGHT / 2;
     Depth = 8;
     MipLevels = 0;
-    Format = RGBA32F;
+    Format = RGBA16F;
 };
 
 storage3D storageTarget1
