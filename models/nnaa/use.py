@@ -43,7 +43,7 @@ if __name__ == "__main__":
 	if len(sys.argv) < 2:
 		print("Usage: python use.py image.png")
 	else:
-		model = tf.keras.models.load_model('nnaa_model.keras')
+		model = tf.keras.models.load_model('nnaa.keras')
 		
 		save(model, sys.argv[1], True)
 	
