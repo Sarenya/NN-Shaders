@@ -58,7 +58,9 @@ class NnaaDataset(tf.keras.utils.PyDataset):
 		inputs = []
 		targets = []
 
-		for i in range(idx, idx + self.batch_size):
+		r_idx = idx * self.batch_size
+
+		for i in range(r_idx, r_idx + self.batch_size):
 			
 			img_name = self.img_names[i]
 
@@ -72,6 +74,7 @@ class NnaaDataset(tf.keras.utils.PyDataset):
 			targets.append(y - x)
 
 		return (np.half(inputs), np.half(targets))
+	
 
 
 if __name__ == "__main__":
