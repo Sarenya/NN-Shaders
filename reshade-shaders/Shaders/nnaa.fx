@@ -8058,7 +8058,6 @@ void Layer_conv2d_3(int3 id : SV_DispatchThreadID)
         f_out_0.z *= 0.09452711045742035;
     if(f_out_0.w < 0)
         f_out_0.w *= -0.02719348855316639;
-    tex2Dstore(storageTarget1_nnaa, id.xy * int2(1, 8) + int2(0, 0), f_out_0);
     if(f_out_1.x < 0)
         f_out_1.x *= -0.07838724553585052;
     if(f_out_1.y < 0)
@@ -8067,7 +8066,6 @@ void Layer_conv2d_3(int3 id : SV_DispatchThreadID)
         f_out_1.z *= -0.04308431223034859;
     if(f_out_1.w < 0)
         f_out_1.w *= -0.04584091529250145;
-    tex2Dstore(storageTarget1_nnaa, id.xy * int2(1, 8) + int2(0, 1), f_out_1);
     if(f_out_2.x < 0)
         f_out_2.x *= -0.1111127957701683;
     if(f_out_2.y < 0)
@@ -8076,7 +8074,6 @@ void Layer_conv2d_3(int3 id : SV_DispatchThreadID)
         f_out_2.z *= 10.02268123626709;
     if(f_out_2.w < 0)
         f_out_2.w *= 0.014816216193139553;
-    tex2Dstore(storageTarget1_nnaa, id.xy * int2(1, 8) + int2(0, 2), f_out_2);
     if(f_out_3.x < 0)
         f_out_3.x *= -0.012679295614361763;
     if(f_out_3.y < 0)
@@ -8085,7 +8082,6 @@ void Layer_conv2d_3(int3 id : SV_DispatchThreadID)
         f_out_3.z *= -0.03803546354174614;
     if(f_out_3.w < 0)
         f_out_3.w *= 5.083026885986328;
-    tex2Dstore(storageTarget1_nnaa, id.xy * int2(1, 8) + int2(0, 3), f_out_3);
     if(f_out_4.x < 0)
         f_out_4.x *= 0.29723697900772095;
     if(f_out_4.y < 0)
@@ -8094,7 +8090,6 @@ void Layer_conv2d_3(int3 id : SV_DispatchThreadID)
         f_out_4.z *= -0.04626509174704552;
     if(f_out_4.w < 0)
         f_out_4.w *= 3.338677406311035;
-    tex2Dstore(storageTarget1_nnaa, id.xy * int2(1, 8) + int2(0, 4), f_out_4);
     if(f_out_5.x < 0)
         f_out_5.x *= 0.1046658605337143;
     if(f_out_5.y < 0)
@@ -8103,7 +8098,6 @@ void Layer_conv2d_3(int3 id : SV_DispatchThreadID)
         f_out_5.z *= 4.5211567878723145;
     if(f_out_5.w < 0)
         f_out_5.w *= -2.711759567260742;
-    tex2Dstore(storageTarget1_nnaa, id.xy * int2(1, 8) + int2(0, 5), f_out_5);
     if(f_out_6.x < 0)
         f_out_6.x *= -0.025390561670064926;
     if(f_out_6.y < 0)
@@ -8112,7 +8106,6 @@ void Layer_conv2d_3(int3 id : SV_DispatchThreadID)
         f_out_6.z *= -0.09540648758411407;
     if(f_out_6.w < 0)
         f_out_6.w *= -0.12239785492420197;
-    tex2Dstore(storageTarget1_nnaa, id.xy * int2(1, 8) + int2(0, 6), f_out_6);
     if(f_out_7.x < 0)
         f_out_7.x *= -0.1166163980960846;
     if(f_out_7.y < 0)
@@ -8121,51 +8114,44 @@ void Layer_conv2d_3(int3 id : SV_DispatchThreadID)
         f_out_7.z *= 0.0024430991616100073;
     if(f_out_7.w < 0)
         f_out_7.w *= -7.222557067871094;
-    tex2Dstore(storageTarget1_nnaa, id.xy * int2(1, 8) + int2(0, 7), f_out_7);
-}
 
-[shader("compute")]
-void Layer_conv2d_final(uint3 id : SV_DispatchThreadID)
-{
-
-    min16float4 f_in;
     min16float4 f_out = min16float4(0.00101989577524364,0.00101989577524364,0.00101989577524364,0.00101989577524364);
-    f_in = tex2Dfetch(storageTarget1_nnaa, id.xy * uint2(1, 8) + uint2(0, 0));
+    f_in = f_out_0;
     f_out += min16float4(0.01756715588271618,0.003657158464193344,0.0027521324809640646,0.01524361502379179) * f_in.x;
     f_out += min16float4(-0.0034140334464609623,-0.01835145428776741,-0.019764389842748642,-0.0026282540056854486) * f_in.y;
     f_out += min16float4(-0.02460034005343914,-0.003580481046810746,-0.006454573944211006,-0.002134589711204171) * f_in.z;
     f_out += min16float4(0.04419517144560814,0.05068720877170563,-0.0690646544098854,-0.01962669938802719) * f_in.w;
-    f_in = tex2Dfetch(storageTarget1_nnaa, id.xy * uint2(1, 8) + uint2(0, 1));
+    f_in = f_out_1;
     f_out += min16float4(0.013124827295541763,0.018803557381033897,-0.010699666105210781,-0.01339769084006548) * f_in.x;
     f_out += min16float4(-0.0018878121627494693,-0.007511255796998739,-0.0039380197413265705,-0.023727167397737503) * f_in.y;
     f_out += min16float4(0.08092428743839264,0.006032044067978859,0.08097174018621445,0.003591198241338134) * f_in.z;
     f_out += min16float4(0.021239738911390305,0.017775176092982292,0.025938158854842186,0.01969485729932785) * f_in.w;
-    f_in = tex2Dfetch(storageTarget1_nnaa, id.xy * uint2(1, 8) + uint2(0, 2));
+    f_in = f_out_2;
     f_out += min16float4(0.007098975591361523,-0.014152388088405132,0.01975807175040245,-0.009252939373254776) * f_in.x;
     f_out += min16float4(0.04953601583838463,0.007628872990608215,0.06841354817152023,0.01160504762083292) * f_in.y;
     f_out += min16float4(0.0001661222631810233,0.0006803759606555104,0.006670992821455002,0.007208704482764006) * f_in.z;
     f_out += min16float4(0.0026412836741656065,0.08767290413379669,0.007561780512332916,0.08695825189352036) * f_in.w;
-    f_in = tex2Dfetch(storageTarget1_nnaa, id.xy * uint2(1, 8) + uint2(0, 3));
+    f_in = f_out_3;
     f_out += min16float4(0.043661072850227356,-0.04249023273587227,0.02810833416879177,-0.04001947492361069) * f_in.x;
     f_out += min16float4(-0.00913324672728777,0.012218342162668705,0.00061530910898,0.017736516892910004) * f_in.y;
     f_out += min16float4(0.023300111293792725,0.02650911547243595,0.0014558150433003902,0.004346157889813185) * f_in.z;
     f_out += min16float4(0.00255389092490077,0.000881555606611073,0.012018896639347076,0.001631955266930163) * f_in.w;
-    f_in = tex2Dfetch(storageTarget1_nnaa, id.xy * uint2(1, 8) + uint2(0, 4));
+    f_in = f_out_4;
     f_out += min16float4(0.006308792624622583,0.020209092646837234,0.02259638160467148,0.004515471402555704) * f_in.x;
     f_out += min16float4(-0.01614868827164173,-0.00379257183521986,-0.0054823108948767185,-0.01616089604794979) * f_in.y;
     f_out += min16float4(-0.02341662161052227,-0.02636243961751461,-0.014951562508940697,-0.01590971276164055) * f_in.z;
     f_out += min16float4(-0.017082320526242256,-0.0011690657120198011,-0.00427986029535532,-0.002028245013207197) * f_in.w;
-    f_in = tex2Dfetch(storageTarget1_nnaa, id.xy * uint2(1, 8) + uint2(0, 5));
+    f_in = f_out_5;
     f_out += min16float4(-0.007585575804114342,-0.024377694353461266,0.005667334422469139,0.0026803610380738974) * f_in.x;
     f_out += min16float4(-0.021911274641752243,-0.05889531597495079,-0.007942348718643188,0.09319150447845459) * f_in.y;
     f_out += min16float4(-0.001061338814906776,-0.0025127348490059376,-0.0017451726598665118,-0.014508155174553394) * f_in.z;
     f_out += min16float4(0.007677242625504732,-0.014051701873540878,-0.008274287916719913,0.005626593716442585) * f_in.w;
-    f_in = tex2Dfetch(storageTarget1_nnaa, id.xy * uint2(1, 8) + uint2(0, 6));
+    f_in = f_out_6;
     f_out += min16float4(-0.07449911534786224,0.05618524178862572,0.050665613263845444,-0.032482147216796875) * f_in.x;
     f_out += min16float4(0.010471339337527752,-0.0001233086222782731,0.004378668498247862,-0.014147642999887466) * f_in.y;
     f_out += min16float4(-0.007728142663836479,0.01931970939040184,-0.01823187805712223,0.00882051046937704) * f_in.z;
     f_out += min16float4(-0.012313912622630596,-0.008784524165093899,0.018228605389595032,0.014847544953227043) * f_in.w;
-    f_in = tex2Dfetch(storageTarget1_nnaa, id.xy * uint2(1, 8) + uint2(0, 7));
+    f_in = f_out_7;
     f_out += min16float4(0.03653392195701599,0.018566137179732323,0.01706215739250183,0.017621805891394615) * f_in.x;
     f_out += min16float4(-0.006708149798214436,0.007706293370574713,-0.00636507011950016,0.006926320027559996) * f_in.y;
     f_out += min16float4(0.17727342247962952,0.21310798823833466,0.23117515444755554,0.24204732477664948) * f_in.z;
@@ -8221,14 +8207,6 @@ technique Sarenya_NNAA < ui_tooltip = "Sarénya NNAA"; >
     pass pass_conv2d_3
     {
         ComputeShader = Layer_conv2d_3<K_SIZE, 1>;
-
-        DispatchSizeX = X_DISPATCH;
-        DispatchSizeY = Y_DISPATCH;
-    }
-
-    pass pass_conv2d_final
-    {
-        ComputeShader = Layer_conv2d_final<K_SIZE, 1>;
 
         DispatchSizeX = X_DISPATCH;
         DispatchSizeY = Y_DISPATCH;
